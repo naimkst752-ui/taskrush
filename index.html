@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TaskRush - Earn Rewards</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #080b12;
+    color: white;
+}
+
+header {
+    padding: 20px;
+    background: #0d111c;
+    border-bottom: 1px solid #20283a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #00f5ff;
+}
+
+.points {
+    background: #151c2c;
+    padding: 10px 16px;
+    border-radius: 20px;
+    color: #00ff9d;
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+    gap: 8px;
+    padding: 12px;
+    overflow-x: auto;
+    background: #0a0e17;
+}
+
+nav button {
+    background: #151c2c;
+    color: white;
+    border: 1px solid #273149;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+nav button:hover {
+    border-color: #00f5ff;
+    color: #00f5ff;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 25px;
+}
+
+.hero {
+    background: linear-gradient(135deg, #101a2e, #111827);
+    border: 1px solid #263653;
+    border-radius: 20px;
+    padding: 35px;
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.hero span {
+    color: #00f5ff;
+}
+
+.hero p {
+    color: #aab4c8;
+    margin-bottom: 20px;
+}
+
+.big-points {
+    font-size: 32px;
+    color: #00ff9d;
+    font-weight: bold;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 18px;
+}
+
+.card {
+    background: #101622;
+    border: 1px solid #202c43;
+    border-radius: 16px;
+    padding: 22px;
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #9da9bd;
+    margin-bottom: 15px;
+}
+
+.reward {
+    color: #00ff9d;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.action {
+    background: #00d9ff;
+    color: #061018;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 9px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.action:hover {
+    background: #00ff9d;
+}
+
+.hidden {
+    display: none;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #101622;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+td, th {
+    padding: 15px;
+    border-bottom: 1px solid #222d42;
+    text-align: left;
+}
+
+.profile-box {
+    text-align: center;
+    background: #101622;
+    padding: 35px;
+    border-radius: 20px;
+}
+
+.avatar {
+    font-size: 60px;
+    margin-bottom: 15px;
+}
+
+footer {
+    text-align: center;
+    color: #667085;
+    padding: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">⚡ TaskRush</div>
+    <div class="points">💎 <span id="points">100</span> Points</div>
+</header>
+
+<nav>
+    <button onclick="showPage('home')">Home</button>
+    <button onclick="showPage('tasks')">Tasks</button>
+    <button onclick="showPage('rewards')">Rewards</button>
+    <button onclick="showPage('leaderboard')">Leaderboard</button>
+    <button onclick="showPage('profile')">Profile</button>
+</nav>
+
+<div class="container">
+
+<section id="home">
+    <div class="hero">
+        <h1>Earn <span>Points</span> From Tasks</h1>
+        <p>Complete available tasks, collect points and redeem eligible rewards.</p>
+        <div class="big-points">
+            💎 <span id="homePoints">100</span>
+        </div>
+    </div>
+
+    <h2>🔥 Quick Actions</h2>
+
+    <div class="grid">
+        <div class="card">
+            <h3>🎁 Daily Bonus</h3>
+            <p>Claim your daily bonus.</p>
+            <div class="reward">+50 Points</div>
+            <button class="action" onclick="dailyBonus()">Claim</button>
+        </div>
+
+        <div class="card">
+            <h3>📋 Complete Tasks</h3>
+            <p>Find available tasks and earn points.</p>
+            <button class="action" onclick="showPage('tasks')">View Tasks</button>
+        </div>
+
+        <div class="card">
+            <h3>👥 Referral</h3>
+            <p>Invite friends and earn bonus points.</p>
+            <button class="action" onclick="referral()">Invite</button>
+        </div>
+    </div>
+</section>
+
+
+<section id="tasks" class="hidden">
+    <h2>📋 Available Tasks</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>📝 Survey</h3>
+            <p>Complete an eligible survey.</p>
+            <div class="reward">+250 Points</div>
+            <button class="action" onclick="completeTask(250)">
+                Start Task
+            </button>
+        </div>
+
+        <div class="card">
+            <h3>🌐 Website Visit</h3>
+            <p>Visit a participating website.</p>
+            <div class="reward">+100 Points</div>
+            <button class="action" onclick="completeTask(100)">
+                Start Task
+            </button>
+        </div>
+
+        <div class="card">
+            <h3>📱 App Trial</h3>
+            <p>Try an eligible application.</p>
+            <div class="reward">+500 Points</div>
+            <button class="action" onclick="completeTask(500)">
+                Start Task
+            </button>
+        </div>
+
+    </div>
+</section>
+
+
+<section id="rewards" class="hidden">
+    <h2>🎁 Rewards</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>💚 bKash</h3>
+            <p>Redeem when you reach the required balance.</p>
+            <div class="reward">10,000 Points</div>
+            <button class="action" onclick="redeem('bKash')">
+                Redeem
+            </button>
+        </div>
+
+        <div class="card">
+            <h3>💙 Nagad</h3>
+            <p>Redeem when you reach the required balance.</p>
+            <div class="reward">10,000 Points</div>
+            <button class="action" onclick="redeem('Nagad')">
+                Redeem
+            </button>
+        </div>
+
+        <div class="card">
+            <h3>🎁 Gift Card</h3>
+            <p>Redeem eligible gift cards.</p>
+            <div class="reward">20,000 Points</div>
+            <button class="action" onclick="redeem('Gift Card')">
+                Redeem
+            </button>
+        </div>
+
+    </div>
+</section>
+
+
+<section id="leaderboard" class="hidden">
+    <h2>🏆 Leaderboard</h2>
+
+    <table>
+        <tr>
+            <th>Rank</th>
+            <th>User</th>
+            <th>Points</th>
+        </tr>
+        <tr>
+            <td>🥇 1</td>
+            <td>ShadowX</td>
+            <td>52,400</td>
+        </tr>
+        <tr>
+            <td>🥈 2</td>
+            <td>DragonYT</td>
+            <td>47,800</td>
+        </tr>
+        <tr>
+            <td>🥉 3</td>
+            <td>RushKing</td>
+            <td>41,200</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>You</td>
+            <td id="leaderPoints">100</td>
+        </tr>
+    </table>
+</section>
+
+
+<section id="profile" class="hidden">
+    <div class="profile-box">
+        <div class="avatar">👤</div>
+        <h2>Your Profile</h2>
+        <p>Member</p>
+        <br>
+        <h3>💎 <span id="profilePoints">100</span> Points</h3>
+    </div>
+</section>
+
+</div>
+
+<footer>
+    TaskRush © 2026 — Demo version
+</footer>
+
+
+<script>
+
+let points = 100;
+let bonusClaimed = false;
+
+function updatePoints() {
+    document.getElementById("points").innerText = points;
+    document.getElementById("homePoints").innerText = points;
+    document.getElementById("profilePoints").innerText = points;
+    document.getElementById("leaderPoints").innerText = points;
+}
+
+function showPage(page) {
+
+    let pages = [
+        "home",
+        "tasks",
+        "rewards",
+        "leaderboard",
+        "profile"
+    ];
+
+    pages.forEach(function(p) {
+        document.getElementById(p).classList.add("hidden");
+    });
+
+    document.getElementById(page).classList.remove("hidden");
+}
+
+function completeTask(amount) {
+
+    alert(
+        "Demo task completed! +" +
+        amount +
+        " points"
+    );
+
+    points += amount;
+    updatePoints();
+}
+
+function dailyBonus() {
+
+    if (bonusClaimed) {
+        alert("You already claimed today's bonus.");
+        return;
+    }
+
+    points += 50;
+    bonusClaimed = true;
+
+    updatePoints();
+
+    alert("🎉 Daily bonus claimed! +50 points");
+}
+
+function referral() {
+
+    alert(
+        "Your referral system will be connected to the real backend later."
+    );
+}
+
+function redeem(method) {
+
+    if (points < 10000) {
+        alert(
+            "You need at least 10,000 points to redeem " +
+            method +
+            "."
+        );
+        return;
+    }
+
+    alert(
+        "Demo redemption request for " +
+        method +
+        " created."
+    );
+}
+
+updatePoints();
+
+</script>
+
+</body>
+</html>
